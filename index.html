@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Thadingyut 顾顾 🏮✨</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <canvas id="sky-canvas"></canvas>
+
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <a href="https://kian721.github.io/guguhome/" class="nav-pill">🏠 Home</a>
+    <a href="https://kian721.github.io/guguletter/" class="nav-pill">💌 Letter</a>
+  </div>
+
+  <div class="container">
+    <span class="fest-badge">🏮 Happy Thadingyut Festival 🏮</span>
+    <h1>သီတင်းကျွတ်မှာ ပျော်ရွှင်ပါစေနော် ကုကု 🥺✨</h1>
+    <p class="hero-sub">
+      ဒီသီတင်းကျွတ်မီးထွန်းပွဲတော်လေးမှာ ကုကု စိတ်ချမ်းသာပြီး အပျော်ဆုံးဖြစ်စေဖို့ ဝမ်ဝမ်းက ဒီစာမျက်နှာလေးကို သီးသန့်လုပ်ပေးထားတာပါနော် 🕯️💛
+    </p>
+
+    <!-- 1. Interactive Oil Lamps (ဆီမီးထွန်းမယ်) -->
+    <div class="fest-card">
+      <h2>၁။ အတူတူ ဆီမီးထွန်းကြမယ် 🕯️</h2>
+      <p class="desc">အောက်က ဆီမီးခွက်လေး (၅) ခွက်ကို လက်လေးနဲ့ တစ်ခွက်ချင်းနှိပ်ပြီး မီးထွန်းပေးပါဦးနော် 👇</p>
+      
+      <div class="lamps-row">
+        <div class="lamp-item" onclick="lightLamp(this)">
+          <span class="lamp-flame">🔥</span>
+          <span class="lamp-bowl">🪔</span>
+        </div>
+        <div class="lamp-item" onclick="lightLamp(this)">
+          <span class="lamp-flame">🔥</span>
+          <span class="lamp-bowl">🪔</span>
+        </div>
+        <div class="lamp-item" onclick="lightLamp(this)">
+          <span class="lamp-flame">🔥</span>
+          <span class="lamp-bowl">🪔</span>
+        </div>
+        <div class="lamp-item" onclick="lightLamp(this)">
+          <span class="lamp-flame">🔥</span>
+          <span class="lamp-bowl">🪔</span>
+        </div>
+        <div class="lamp-item" onclick="lightLamp(this)">
+          <span class="lamp-flame">🔥</span>
+          <span class="lamp-bowl">🪔</span>
+        </div>
+      </div>
+
+      <div id="lamp-secret-msg" class="lamp-secret-msg">
+        ✨ ဆီမီးလေးတွေ အကုန်လင်းသွားပြီ! ဒီဆီမီးရောင်လေးတွေလိုပဲ ကုကုရဲ့နေ့ရက်တိုင်း အမြဲတမ်း အေးချမ်းတောက်ပနေပါစေနော် 🤍🕯️
+      </div>
+    </div>
+
+    <!-- 2. Sky Lantern Wish (မီးပုံးပျံလွှတ်မယ်) -->
+    <div class="fest-card">
+      <h2>၂။ ဆုတောင်း မီးပုံးပျံလွှတ်မယ် 🏮</h2>
+      <p class="desc">ကုကု ဖြစ်ချင်တဲ့ ဆုတောင်းလေးတစ်ခုရေးပြီး ကောင်းကင်ပေါ် မီးပုံးပျံလွှတ်လိုက်ရအောင်နော် ✨</p>
+
+      <div class="lantern-stage">
+        <div id="wish-lantern" class="big-lantern">🏮</div>
+      </div>
+
+      <input type="text" id="wish-input" class="wish-input" placeholder="ကုကုရဲ့ ဆုတောင်းလေး ဒီမှာရေးပေးနော်... (မရေးဘဲ ဒီတိုင်းလွှတ်လည်း ရတယ်နော်)">
+      <button type="button" class="gold-btn" onclick="releaseLantern()">မီးပုံးပျံလွှတ်မယ် 🏮✨</button>
+      <p id="wish-status" class="wish-status"></p>
+    </div>
+
+    <!-- 3. Thadingyut Pocket Money (မုန့်ဖိုးအိတ်လေး) -->
+    <div class="fest-card">
+      <h2>၃။ သီတင်းကျွတ် မုန့်ဖိုးအိတ်လေး 🧧</h2>
+      <p class="desc">ကုကုအတွက် ဝမ်ဝမ်းရဲ့ သီတင်းကျွတ် မုန့်ဖိုးအိတ်လေးကို နှိပ်ပြီး ဖွင့်ကြည့်ပါဦး 👇</p>
+
+      <div class="envelope-gift" onclick="openMonePhoe()">
+        <div class="envelope-gift-icon">🧧✨</div>
+        <h4>For 顾顾 💖</h4>
+        <span>Tap to open your Thadingyut gift!</span>
+      </div>
+
+      <div id="mone-phoe-reveal" class="mone-phoe-reveal">
+        🎉 <strong>Happy Thadingyut ပါ ကုကုရေ!</strong><br>
+        သီတင်းကျွတ်မုန့်ဖိုးကတော့ အပြင်မှာတွေ့တဲ့အခါ (ဒါမှမဟုတ် ကုကုစားချင်တဲ့မုန့်လေးတွေ) ဝမ်ဝမ်းက အများကြီးဝယ်ကျွေးမှာပါနော်! 😋🧋✨
+      </div>
+    </div>
+
+    <!-- 4. End Navigation Card (Home & Letter) -->
+    <div class="footer-nav-card">
+      <h3>သွားချင်တဲ့နေရာလေးကို ရွေးလို့ရပါတယ်နော် 🌸🏮</h3>
+      <p>ပင်မစာမျက်နှာ (Home) ကိုပြန်သွားမလား၊ ဝမ်ဝမ်းရေးထားတဲ့ စာလေး (Letter) ကို ပြန်ဖတ်မလားဟင်?</p>
+      <div class="footer-btn-row">
+        <a href="https://kian721.github.io/guguhome/" class="footer-btn btn-home">🏠 Home</a>
+        <a href="https://kian721.github.io/guguletter/" class="footer-btn btn-letter">💌 Letter Web</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

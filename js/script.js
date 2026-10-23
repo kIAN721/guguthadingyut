@@ -143,7 +143,7 @@ function ringBell() {
   }
 
   if (progressEl) {
-    progressEl.textContent = `ခေါင်းလောင်းထိုးမည်: ${bellTaps} / 3 🔔`;
+    progressEl.textContent = `Ring: ${bellTaps} / 3 🔔`;
   }
 
   if (bellTaps === 3 && !bellWishRevealed) {

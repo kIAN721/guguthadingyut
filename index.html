@@ -10,11 +10,16 @@
 
   <canvas id="sky-canvas"></canvas>
 
-  <!-- Top Navigation -->
-  <div class="top-nav">
-    <a href="https://kian721.github.io/guguhome/" class="nav-pill">🏠 Home</a>
-    <a href="https://kian721.github.io/guguletter/" class="nav-pill">💌 Letter</a>
-  </div>
+  <!-- Background Audio Player -->
+  <audio id="bg-audio" loop autoplay preload="auto">
+    <source src="audio/themesong.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Music Toggle Button -->
+  <button type="button" id="music-toggle-btn" class="music-toggle-btn playing" onclick="toggleMusic()">
+    <span id="music-icon" class="music-icon">🎶</span>
+    <span id="music-text" class="music-text">Mute</span>
+  </button>
 
   <div class="container">
     <span class="fest-badge">🏮 Happy Thadingyut Festival 🏮</span>
@@ -52,20 +57,20 @@
       </div>
 
       <div id="lamp-secret-msg" class="lamp-secret-msg">
-        ✨ ရေးးးးး အကုန်လင်းသွားပြီ！ ဒီမီးရောင်လေးတွေလိုပဲ ဒီနှစ်သီတင်းကျွတ်ကစပြီး ကုကုရဲ့နေ့ရက်တိုင်း အမြဲအေးချမ်းတောင်ပနေပါစေလို့ဆိုတောင်းပေးပါတယ်ဗျာ 🤍🕯️
+        ✨ ရေးးးးး အကုန်လင်းသွားပြီ！ ဒီမီးရောင်လေးတွေလိုပဲ ဒီနှစ်သီတင်းကျွတ်ကစပြီး ကုကုရဲ့နေ့ရက်တိုင်း အမြဲအေးချမ်းတောက်ပနေပါစေလို့ဆုတောင်းပေးပါတယ်ဗျာ 🤍🕯️
       </div>
     </div>
 
     <!-- 2. Sky Lantern Wish (မီးပုံးပျံလွှတ်မယ်) -->
     <div class="fest-card">
-      <h2>၂။ ဒါလည်း အစစ်မဟုတ်ပေမဲ့ မီးပုံပျံလွှတ်လို့ရပါတယ်🙄 🏮</h2>
-      <p class="desc">ကု ဖြစ်ချင်တဲ့ ဆုတောင်းလေးတစ်ခုရေးပြီး မီးပုံပျံလွှတ်လို့ရတယ်နော်. အစစ်မဟုတ်တော့ပြည့်ချင်မှပြည့်မှာပေမဲ့လည်း ဒီနှစ်တော့တောင်ကြီးထိသွားစရာမလိုတော့ဘူး ဟီးးးးးးး. ✨</p>
+      <h2>၂။ ဒါလည်း အစစ်မဟုတ်ပေမဲ့ မီးပုံးပျံလွှတ်လို့ရပါတယ်🙄 🏮</h2>
+      <p class="desc">ကု ဖြစ်ချင်တဲ့ ဆုတောင်းလေးတစ်ခုရေးပြီး မီးပုံးပျံလွှတ်လို့ရတယ်နော်. အစစ်မဟုတ်တော့ပြည့်ချင်မှပြည့်မှာပေမဲ့လည်း ဒီနှစ်တော့တောင်ကြီးထိသွားစရာမလိုတော့ဘူး ဟီးးးးးးး. ✨</p>
 
       <div class="lantern-stage">
         <div id="wish-lantern" class="big-lantern">🏮</div>
       </div>
 
-      <input type="text" id="wish-input" class="wish-input" placeholder="ကုကုရဲ့ ဆုတောင်းလေး ဒီမှာရေးပေးနော်... (မရေးဘဲ ဒီတိုင်းလွှတ်လည်း ရတယ်နော်)">
+      <textarea id="wish-input" class="wish-input" rows="3" placeholder="ကုကုရဲ့ ဆုတောင်းလေး ဒီမှာရေးပေးနော်... (မရေးဘဲ ဒီတိုင်းလွှတ်လည်း ရတယ်နော်)"></textarea>
       <button type="button" class="gold-btn" onclick="releaseLantern()">မီးပုံးပျံလွှတ်မယ် 🏮✨</button>
       <p id="wish-status" class="wish-status"></p>
     </div>
@@ -87,7 +92,28 @@
       </div>
     </div>
 
-    <!-- 4. End Navigation Card (Home & Letter) -->
+    <!-- 4. My Wish For Her (Ring the Golden Bell Mini-Game) -->
+    <div class="fest-card">
+      <h2>၄။ ကုကုအတွက် ဝမ်ဝမ်းရဲ့ ဆုတောင်းလေး 🔔💖</h2>
+      <p class="desc">ဝမ်ဝမ်းရဲ့ ဆုတောင်းစာလေးပေါ်လာအောင် အောက်က ရွှေခေါင်းလောင်းလေးကို (၃) ချက် တီးပေးပါဦး 👇✨</p>
+
+      <div id="bell-stage" class="bell-stage">
+        <button type="button" id="bell-btn" class="bell-btn" onclick="ringBell()">
+          <span id="bell-sparkle" class="bell-sparkle">✨</span>
+          <span id="bell-icon" class="bell-icon">🔔</span>
+        </button>
+        <div id="bell-progress" class="bell-progress">ခေါင်းလောင်းထိုးမည်: 0 / 3 🔔</div>
+      </div>
+
+      <div id="my-wish-reveal" class="my-wish-reveal">
+        <div class="wish-header">💖 <strong>To: 顾顾 (ကုကု)</strong> ✨</div>
+        <p>
+          "ကုကုရေ.. ဒီနှစ်သီတင်းကျွတ်ကစပြီး စိတ်ချမ်းသာသာနေရပါစေ၊ မိဘကအားကိုးရတဲ့ သမီးလိမ္မာလေးဖြစ်ပါစေ (ဒါကတော့ဖြစ်ပြီးသားပါ🙄)၊ ကုကုဖြစ်ချင်တာတွေလည်းဖြစ်ပါစေ၊ ချစ်ရတဲ့သူတွေနဲ့လည်း အမြဲတူတူသက်ဆုံးတိုင်ရှိနေရပါစေ၊ အလုပ်ပင်ပန်းတာတွေရှိခဲ့ရင်လည်း ခုလိုပဲအားတင်းပြီးရှေ့ဆက်အများကြီးလုပ်နိုင်ပါစေလို့ဝမ်ဝမ်းဆုတောင်းပေးလိုက်ပါတယ်နော်.. ကုကုရေ ပျော်ရွှင်ဖွယ်သီတင်းကျွတ်အခါသမယလေးဖြစ်ပါစေဗျာ…💞✨🪔"
+        </p>
+      </div>
+    </div>
+
+    <!-- 5. End Navigation Card (Home & Letter) -->
     <div class="footer-nav-card">
       <h3>ကုကုပြန်ကြည့်ချင်တဲ့နေရာကိုရွေးလို့ရပါတယ် 🌸🏮</h3>
       <p>အကုန်ကြည့်ပြီးပြီဆိုရင် ထွက်လို့ရပါပြီ နောက်မှ ထပ်ဝင်ကြည့်ချင်လည်းရပါတယ် ကုကု</p>

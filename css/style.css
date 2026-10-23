@@ -12,7 +12,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 75px 16px 80px;
+  padding: 45px 16px 80px;
   overflow-x: hidden;
   position: relative;
 }
@@ -26,38 +26,50 @@ body {
   z-index: 1;
 }
 
-.top-nav {
+/* Floating Music Toggle Button */
+.music-toggle-btn {
   position: fixed;
-  top: 16px;
-  left: 16px;
-  right: 16px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 50;
-  pointer-events: none;
-}
-
-.nav-pill {
-  pointer-events: auto;
-  background: rgba(30, 27, 75, 0.85);
-  border: 1px solid rgba(251, 191, 36, 0.45);
-  color: #FDE68A;
-  text-decoration: none;
-  padding: 8px 16px;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  background: rgba(30, 41, 59, 0.85);
+  border: 1.5px solid rgba(251, 191, 36, 0.5);
+  color: #FCD34D;
+  padding: 8px 14px;
   border-radius: 999px;
   font-size: 13px;
-  font-weight: 600;
-  backdrop-filter: blur(8px);
+  font-weight: 700;
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
+  backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s;
+  transition: transform 0.2s, background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-pill:hover {
-  background: rgba(245, 158, 11, 0.25);
-  transform: translateY(-2px);
+.music-toggle-btn:hover {
+  transform: scale(1.05);
+  background: rgba(30, 41, 59, 0.95);
+}
+
+.music-icon {
+  font-size: 16px;
+}
+
+/* Playing animation state */
+.music-toggle-btn.playing {
+  border-color: #F59E0B;
+  background: rgba(245, 158, 11, 0.2);
+  animation: musicPulse 2s infinite ease-in-out;
+}
+
+@keyframes musicPulse {
+  0% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 0 22px rgba(245, 158, 11, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
 }
 
 .container {
@@ -220,14 +232,18 @@ h1 {
   border-radius: 14px;
   padding: 12px 14px;
   color: #FFFBEB;
+  font-family: inherit;
   font-size: 13.5px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   outline: none;
-  line-height: 1.6;
+  line-height: 1.75;
+  resize: none;
+  text-align: center;
 }
 
 .wish-input::placeholder {
   color: #94A3B8;
+  line-height: 1.75;
 }
 
 .gold-btn {
@@ -300,7 +316,120 @@ h1 {
   line-height: 1.85;
 }
 
-/* 4. Footer Navigation */
+/* 4. Ring the Golden Bell Mini-Game */
+.bell-stage {
+  position: relative;
+  height: 180px;
+  background: radial-gradient(circle at 50% 50%, rgba(30, 27, 75, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1.5px dashed rgba(251, 191, 36, 0.4);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px 14px;
+  overflow: hidden;
+}
+
+.bell-btn {
+  position: relative;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0) 70%);
+  border: none;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bell-icon {
+  font-size: 48px;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.6));
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bell-sparkle {
+  position: absolute;
+  top: 4px;
+  font-size: 20px;
+  opacity: 0;
+  transform: translateY(8px) scale(0.5);
+  transition: all 0.3s ease;
+}
+
+/* Bell ringing animations on tap */
+.bell-btn.ring-1 .bell-icon {
+  transform: rotate(18deg) scale(1.12);
+  filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.8));
+}
+
+.bell-btn.ring-2 .bell-icon {
+  transform: rotate(-18deg) scale(1.22);
+  filter: drop-shadow(0 0 24px rgba(244, 114, 182, 0.85));
+}
+
+.bell-btn.ring-2 .bell-sparkle {
+  opacity: 1;
+  transform: translateY(-2px) scale(1);
+}
+
+.bell-btn.ring-3 {
+  transform: scale(1.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.bell-progress {
+  font-size: 12.5px;
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.my-wish-reveal {
+  display: none;
+  margin-top: 16px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(225, 29, 72, 0.16) 100%);
+  border: 1.5px solid #FBBF24;
+  border-radius: 18px;
+  padding: 22px 18px;
+  color: #FFFBEB;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+  animation: revealPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes revealPop {
+  0% { opacity: 0; transform: translateY(12px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.wish-header {
+  font-size: 15px;
+  color: #FCD34D;
+  margin-bottom: 10px;
+  text-align: center;
+  border-bottom: 1px dashed rgba(251, 191, 36, 0.4);
+  padding-bottom: 8px;
+}
+
+.my-wish-reveal p {
+  font-size: 14px;
+  line-height: 2;
+  color: #FEF3C7;
+  text-align: center;
+}
+
+/* 5. Footer Navigation */
 .footer-nav-card {
   background: rgba(30, 41, 59, 0.85);
   border: 1.5px dashed rgba(251, 191, 36, 0.45);

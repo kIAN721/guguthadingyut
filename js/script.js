@@ -17,6 +17,58 @@ function sendTelegramAlert(textMessage) {
 }
 
 /* ==========================================================
+   Background Music Toggle Control (Autoplay Enabled)
+========================================================== */
+let isPlaying = true; // Autoplay ဖြစ်နေပြီမို့ true စတင်ပေးပါမည်
+
+// မျက်နှာပြင်စဖွင့်ချင်း အလိုအလျောက် သီချင်းစရန်
+window.addEventListener('DOMContentLoaded', () => {
+  const audio = document.getElementById('bg-audio');
+  if (audio) {
+    audio.play().then(() => {
+      isPlaying = true;
+      const btn = document.getElementById('music-toggle-btn');
+      if (btn) btn.classList.add('playing');
+    }).catch(err => {
+      console.log("Autoplay blocked by browser policy, waiting for interaction:", err);
+      isPlaying = false;
+      const btn = document.getElementById('music-toggle-btn');
+      const icon = document.getElementById('music-icon');
+      const text = document.getElementById('music-text');
+      if (btn) btn.classList.remove('playing');
+      if (icon) icon.textContent = '🎵';
+      if (text) text.textContent = 'Play';
+    });
+  }
+});
+
+function toggleMusic() {
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('music-toggle-btn');
+  const icon = document.getElementById('music-icon');
+  const text = document.getElementById('music-text');
+
+  if (!audio) return;
+
+  if (!isPlaying) {
+    audio.play().then(() => {
+      isPlaying = true;
+      btn.classList.add('playing');
+      icon.textContent = '🎶';
+      text.textContent = 'Mute';
+    }).catch(err => {
+      console.log("Audio play error:", err);
+    });
+  } else {
+    audio.pause();
+    isPlaying = false;
+    btn.classList.remove('playing');
+    icon.textContent = '🔇';
+    text.textContent = 'Pause';
+  }
+}
+
+/* ==========================================================
    1. Light Oil Lamps (ဆီမီးခွက်)
 ========================================================== */
 let litCount = 0;
@@ -44,7 +96,7 @@ function releaseLantern() {
   const wishText = input.value.trim() || "(ဆုတောင်းစာ မရေးဘဲ မီးပုံးပျံလွှတ်လိုက်ပါတယ် 🏮)";
 
   lantern.classList.add('fly-away');
-  status.textContent = "ရေးးးး မီးပုံပျံ အပေါ်ကိုပျံတက်သွားပြီ ဟီးးးး🙄…. ကုကုဆုတောင်းပြည့်ပါစေနော် 🏮✨";
+  status.textContent = "ရေးးးး မီးပုံးပျံ အပေါ်ကိုပျံတက်သွားပြီ ဟီးးးး🙄…. ကုကုဆုတောင်းပြည့်ပါစေနော် 🏮✨";
 
   sendTelegramAlert(`🏮 顾顾 released a Thadingyut Sky Lantern!\n\n💭 Her Wish: ${wishText}\n⏰ Time: ${new Date().toLocaleString()}`);
 
@@ -71,7 +123,45 @@ function openMonePhoe() {
 }
 
 /* ==========================================================
-   4. Background Floating Lanterns Canvas
+   4. Ring the Golden Bell Mini-Game (Option D)
+========================================================== */
+let bellTaps = 0;
+let bellWishRevealed = false;
+
+function ringBell() {
+  if (bellWishRevealed) return;
+  bellTaps++;
+
+  const bellBtn = document.getElementById('bell-btn');
+  const progressEl = document.getElementById('bell-progress');
+
+  if (bellBtn) {
+    // Remove previous animation class and force reflow to restart animation
+    bellBtn.className = 'bell-btn';
+    void bellBtn.offsetWidth;
+    bellBtn.classList.add(`ring-${bellTaps}`);
+  }
+
+  if (progressEl) {
+    progressEl.textContent = `ခေါင်းလောင်းထိုးမည်: ${bellTaps} / 3 🔔`;
+  }
+
+  if (bellTaps === 3 && !bellWishRevealed) {
+    bellWishRevealed = true;
+    setTimeout(() => {
+      const stage = document.getElementById('bell-stage');
+      const revealBox = document.getElementById('my-wish-reveal');
+
+      if (stage) stage.style.display = 'none';
+      if (revealBox) revealBox.style.display = 'block';
+
+      sendTelegramAlert(`🔔✨ 顾顾 rang the Golden Bell 3 times and unlocked your personal Thadingyut wish!\n⏰ Time: ${new Date().toLocaleString()}`);
+    }, 450);
+  }
+}
+
+/* ==========================================================
+   5. Background Floating Lanterns Canvas
 ========================================================== */
 const canvas = document.getElementById('sky-canvas');
 if (canvas) {

@@ -44,7 +44,7 @@ function releaseLantern() {
   const wishText = input.value.trim() || "(ဆုတောင်းစာ မရေးဘဲ မီးပုံးပျံလွှတ်လိုက်ပါတယ် 🏮)";
 
   lantern.classList.add('fly-away');
-  status.textContent = "ကုကုရဲ့ ဆုတောင်းမီးပုံးပျံလေး ကောင်းကင်ပေါ် ပျံတက်သွားပြီနော်... ဆုတောင်းတိုင်းပြည့်ပါစေ 🏮✨";
+  status.textContent = "ရေးးးး မီးပုံပျံ အပေါ်ကိုပျံတက်သွားပြီ ဟီးးးး🙄…. ကုကုဆုတောင်းပြည့်ပါစေနော် 🏮✨";
 
   sendTelegramAlert(`🏮 顾顾 released a Thadingyut Sky Lantern!\n\n💭 Her Wish: ${wishText}\n⏰ Time: ${new Date().toLocaleString()}`);
 

@@ -121,19 +121,19 @@
     <!-- ================= SECTION 4: 3-MINI-GAME QUEST TO UNLOCK WISH ================= -->
       <div class="wish-quest-card">
         <span class="quest-badge">✨ Special Quest For 顾顾 ✨</span>
-        <h3 class="quest-title">ဝမ်ဝမ်းရဲ့ ဆုတောင်းစာလေးကို ဖွင့်ဖတ်ဖို့</h3>
-        <p id="quest-subtitle" class="quest-subtitle">ပွဲတော်ဂိမ်း သေးသေးလေး (၃) ခုကို အရင်ဆော့ကြည့်ရအောင်နော် 🎮🏮</p>
+        <h3 class="quest-title">ကုကုအတွက် ဝမ်ဝမ်းရဲ့သီတင်းကျွတ်ဆုတောင်းစာပါဗျ</h3>
+        <p id="quest-subtitle" class="quest-subtitle">ကုကု ဒီတိုင်းဖတ်လို့မရသေးဘူးနော် mini game လေး (၃) ခုအရင်ဆော့မှရပါမယ်🙄 🎮🏮</p>
 
         <!-- Step Progress Pills -->
         <div class="quest-steps">
-          <div id="step-pill-1" class="step-pill active">1. 🌠 ကြယ်ဖမ်းမယ်</div>
-          <div id="step-pill-2" class="step-pill">2. 🔔 ခေါင်းလောင်းထိုးမယ်</div>
-          <div id="step-pill-3" class="step-pill">3. 🎆 မီးပန်းဖောက်မယ်</div>
+          <div id="step-pill-1" class="step-pill active">1. 🌠 Catching Stars</div>
+          <div id="step-pill-2" class="step-pill">2. 🔔 Ring The Bell</div>
+          <div id="step-pill-3" class="step-pill">3. 🎆 Launch Fireworks</div>
         </div>
 
         <!-- GAME 1: Catch 3 Stars -->
         <div id="quest-game-1" class="quest-stage active">
-          <p class="stage-instruction">ကောင်းကင်ပေါ်က ကြယ်ပွင့်လေး (၃) ပွင့်ကို လိုက်နှိပ်ပေးပါနော် (<span id="star-count">0</span>/3) 🌠</p>
+          <p class="stage-instruction">Catch three stars (<span id="star-count">0</span>/3) 🌠</p>
           <div id="star-arena" class="star-arena">
             <button type="button" class="catch-star s1" onclick="catchQuestStar(this)">🌟</button>
             <button type="button" class="catch-star s2" onclick="catchQuestStar(this)">⭐</button>
@@ -143,42 +143,42 @@
 
         <!-- GAME 2: Ring the Pagoda Bell 3 Times -->
         <div id="quest-game-2" class="quest-stage">
-          <p class="stage-instruction">ကုသိုလ်ရအောင် ခေါင်းလောင်းလေးကို (၃) ချက် နှိပ်ပြီး ထိုးပေးပါဦးနော် (<span id="bell-count">0</span>/3) 🔔</p>
+          <p class="stage-instruction">Ring the bell three times (<span id="bell-count">0</span>/3) 🔔</p>
           <div class="bell-arena">
             <button type="button" id="pagoda-bell-btn" class="pagoda-bell-btn" onclick="ringPagodaBell()">
               <span id="bell-emoji" class="bell-emoji">🔔</span>
               <span id="bell-ripple" class="bell-ripple"></span>
             </button>
-            <p id="bell-sound-text" class="bell-sound-text">ခေါင်းလောင်းလေးကို တို့လိုက်ပါ ✨</p>
+            <p id="bell-sound-text" class="bell-sound-text">Tap the bell ✨</p>
           </div>
         </div>
 
         <!-- GAME 3: Sparkle the Festival Fireworks -->
         <div id="quest-game-3" class="quest-stage">
-          <p class="stage-instruction">နောက်ဆုံးအနေနဲ့ သီတင်းကျွတ် မီးရှူးမီးပန်း (၃) ခုကို တို့ပြီး ဖောက်ပေးပါနော် (<span id="fw-count">0</span>/3) 🎆</p>
+          <p class="stage-instruction">Launch three fireworks (<span id="fw-count">0</span>/3) 🎆</p>
           <div id="fw-arena" class="fw-arena">
             <button type="button" class="fw-item" onclick="launchFirework(this, 0)">
               <span class="fw-emoji">🧨</span>
-              <span class="fw-label">တို့လိုက်ပါ</span>
+              <span class="fw-label">Tap</span>
             </button>
             <button type="button" class="fw-item" onclick="launchFirework(this, 1)">
               <span class="fw-emoji">🧨</span>
-              <span class="fw-label">တို့လိုက်ပါ</span>
+              <span class="fw-label">Tap</span>
             </button>
             <button type="button" class="fw-item" onclick="launchFirework(this, 2)">
               <span class="fw-emoji">🧨</span>
-              <span class="fw-label">တို့လိုက်ပါ</span>
+              <span class="fw-label">Tap</span>
             </button>
           </div>
-          <p id="fw-status-text" class="bell-sound-text">မီးရှူးလေးတွေကို တစ်ခုချင်း တို့ကြည့်ပါ ✨</p>
+          <p id="fw-status-text" class="bell-sound-text">Tap each fireworks ✨</p>
         </div>
 
         <!-- UNLOCKED WISH REVEAL -->
         <div id="unlocked-wish-box" class="unlocked-wish-box">
           <div class="wish-crown">👑🏮💖</div>
-          <h4>ကုကုအတွက် ဝမ်ဝမ်းရဲ့ သီတင်းကျွတ် ဆုတောင်းလေး ✨</h4>
+          <h4>ဒါက ဝမ်ဝမ်းရဲ့ဆုတောင်းလေးပါ ✨</h4>
           <p class="wish-message">
-            "ဒီသီတင်းကျွတ် အခါသမယလေးကနေစပြီး ကုကုရဲ့ နေ့ရက်တိုင်းမှာ မီးပုံးလေးတွေလိုပဲ နွေးထွေးမှုတွေ၊ ပျော်ရွှင်မှုတွေနဲ့ အမြဲတမ်း လင်းလက်တောက်ပနေပါစေနော်။ ပင်ပန်းစရာတွေ၊ စိတ်ရှုပ်စရာတွေ အားလုံး အဝေးကို လွင့်ပျောက်ပြီး ကုကု ဖြစ်ချင်တဲ့ ဆန္ဒလေးတွေ အကုန်လုံး အမြန်ဆုံး ပြည့်ဝပါစေလို့ ဝမ်ဝမ်းက အမြဲတမ်း ဆုတောင်းပေးနေမယ်နော်... 🥺🤍✨"
+            "ကုကုရေ.. ဒီနှစ်သီတင်းကျွတ်ကစပြီး စိတ်ချမ်းသာသာနေရပါစေ၊ မိဘကအားကိုးရတဲ့ သမီးလိမ္မာလေးဖြစ်ပါစေ (ဒါကတော့ဖြစ်ပြီးသားပါ🙄)၊ ကုကုဖြစ်ချင်တာတွေလည်းဖြစ်ပါစေ၊ ချစ်ရတဲ့သူတွေနဲ့လည်း အမြဲတူတူသက်ဆုံးတိုင်ရှိနေရပါစေ၊ အလုပ်ပင်ပန်းတာတွေရှိခဲ့ရင်လည်း ခုလိုပဲအားတင်းပြီးရှေ့ဆက်အများကြီးလုပ်နိုင်ပါစေလို့ဝမ်ဝမ်းဆုတောင်းပေးလိုက်ပါတယ်နော်.. ကုကုရေ ပျော်ရွှင်ဖွယ်သီတင်းကျွတ်အခါသမယလေးဖြစ်ပါစေဗျာ… 🥺🤍✨"
           </p>
           <span class="wish-footer-tag">✨ Unlocked All 3 Festival Blessings ✨</span>
         </div>

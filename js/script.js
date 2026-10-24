@@ -74,7 +74,7 @@ function toggleMusic() {
 const thadingyutTracks = [
   {
     title: "သီတင်းကျွတ်ညချမ်း (Acoustic Vibe)",
-    src: "audio/thadingyut1.mp3" // Replace with your actual audio filename or link
+    src: "audio/taywar.mp3" // Replace with your actual audio filename or link
   },
   {
     title: "မီးပုံးပျံလေးများ (Lantern Glow)",
@@ -236,7 +236,7 @@ function catchQuestStar(starBtn) {
 
       const p1 = document.getElementById('step-pill-1');
       const p2 = document.getElementById('step-pill-2');
-      if (p1) { p1.classList.remove('active'); p1.classList.add('done'); p1.textContent = '1. 🌠 ပြီးပြီ ✓'; }
+      if (p1) { p1.classList.remove('active'); p1.classList.add('done'); p1.textContent = '1. 🌠 Done ✓'; }
       if (p2) p2.classList.add('active');
     }, 450);
   }
@@ -268,9 +268,9 @@ function ringPagodaBell() {
   }
 
   const bellMessages = [
-    "နောင်... ✨ (၁ ချက် - စိတ်ချမ်းသာပါစေ)",
-    "နောင်... 🌟 (၂ ချက် - ကျန်းမာပျော်ရွှင်ပါစေ)",
-    "နောင်... 🙏 (၃ ချက် - ဆုတောင်းပြည့်ပါစေ!)"
+    "Ringing... ✨ (One - စိတ်ချမ်းသာပါစေ)",
+    "Ringing... 🌟 (Two - ကျန်းမာပျော်ရွှင်ပါစေ)",
+    "Ringing... 🙏 (Three - ဆုတောင်းပြည့်ပါစေ!)"
   ];
   if (soundText) soundText.textContent = bellMessages[bellRings - 1];
 
@@ -281,7 +281,7 @@ function ringPagodaBell() {
 
       const p2 = document.getElementById('step-pill-2');
       const p3 = document.getElementById('step-pill-3');
-      if (p2) { p2.classList.remove('active'); p2.classList.add('done'); p2.textContent = '2. 🔔 ပြီးပြီ ✓'; }
+      if (p2) { p2.classList.remove('active'); p2.classList.add('done'); p2.textContent = '2. 🔔 Done ✓'; }
       if (p3) p3.classList.add('active');
     }, 800);
   }
@@ -329,7 +329,7 @@ function launchFirework(fwBtn, idx) {
   const labelEl = fwBtn.querySelector('.fw-label');
   const icons = ['🎇', '🎆', '🎇'];
   if (emojiEl) emojiEl.textContent = icons[idx % icons.length];
-  if (labelEl) labelEl.textContent = 'လှလိုက်တာ! ✨';
+  if (labelEl) labelEl.textContent = 'ဝါးးးးးးးး! ✨';
 
   spawnFireworkBurst(fwBtn);
 
@@ -338,19 +338,19 @@ function launchFirework(fwBtn, idx) {
   if (countEl) countEl.textContent = fireworksLit;
 
   if (fireworksLit === 1 && statusEl) {
-    statusEl.textContent = 'ရွှီး... ဖောင်း! 🎇 နောက် (၂) ခု ကျန်သေးတယ်နော်!';
+    statusEl.textContent = '🎇 နောက်နှစ်ခုကျန်သေးတယ်နော်';
   } else if (fireworksLit === 2 && statusEl) {
-    statusEl.textContent = 'အရမ်းလှတာပဲ! 🎆 နောက်ဆုံး (၁) ခုကို ဖောက်လိုက်ပါဦး!';
+    statusEl.textContent = '🎆 နောက်ဆုံးတစ်ခုလည်းနှိပ်လိုက်ဦးနော်!';
   } else if (fireworksLit >= 3) {
-    if (statusEl) statusEl.textContent = 'မီးရှူးမီးပန်းတွေ အကုန်လုံး လင်းလက်သွားပြီ! 🎉🎆';
+    if (statusEl) statusEl.textContent = 'ရေးးးးး အကုန်ပြီးသွားပါပြီ! 🎉🎆';
 
     setTimeout(() => {
       document.getElementById('quest-game-3').classList.remove('active');
       const p3 = document.getElementById('step-pill-3');
-      if (p3) { p3.classList.remove('active'); p3.classList.add('done'); p3.textContent = '3. 🎆 ပြီးပြီ ✓'; }
+      if (p3) { p3.classList.remove('active'); p3.classList.add('done'); p3.textContent = '3. 🎆 Done ✓'; }
 
       const subtitle = document.getElementById('quest-subtitle');
-      if (subtitle) subtitle.textContent = 'ဂိမ်း (၃) ခုလုံး အောင်မြင်စွာ ပြီးဆုံးသွားပါပြီ! 🎉💖';
+      if (subtitle) subtitle.textContent = 'All 3 games have been completed!!!! 🎉💖';
 
       const wishBox = document.getElementById('unlocked-wish-box');
       if (wishBox) wishBox.classList.add('show');

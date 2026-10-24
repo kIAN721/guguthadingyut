@@ -69,6 +69,77 @@ function toggleMusic() {
 }
 
 /* ==========================================================
+   Thadingyut Lantern Jukebox Controller
+========================================================== */
+const thadingyutTracks = [
+  {
+    title: "သီတင်းကျွတ်ညချမ်း (Acoustic Vibe)",
+    src: "audio/thadingyut1.mp3" // Replace with your actual audio filename or link
+  },
+  {
+    title: "မီးပုံးပျံလေးများ (Lantern Glow)",
+    src: "audio/thadingyut2.mp3" // Replace with your actual audio filename or link
+  },
+  {
+    title: "ဆီမီးတိုင်လေးတွေထွန်းလို့ (Festival Night)",
+    src: "audio/thadingyut3.mp3" // Replace with your actual audio filename or link
+  }
+];
+
+let currentTrackIdx = 0;
+let isJukeboxPlaying = false;
+
+function toggleThadingyutMusic() {
+  const audioEl = document.getElementById('thadingyut-audio');
+  const discBtn = document.querySelector('.lantern-toggle-disc');
+  const statusEl = document.getElementById('thadingyut-track-status');
+  const titleEl = document.getElementById('thadingyut-track-title');
+  
+  if (!audioEl) return;
+
+  if (!audioEl.getAttribute('src')) {
+    audioEl.setAttribute('src', thadingyutTracks[currentTrackIdx].src);
+  }
+
+  if (!isJukeboxPlaying) {
+    audioEl.play().then(() => {
+      isJukeboxPlaying = true;
+      if (discBtn) discBtn.classList.add('playing');
+      if (statusEl) statusEl.textContent = 'ဖွင့်ထားသည် 🎶 (Playing)';
+      if (titleEl) titleEl.textContent = thadingyutTracks[currentTrackIdx].title;
+    }).catch(err => {
+      console.log("Jukebox play error (check audio file path):", err);
+      if (statusEl) statusEl.textContent = 'သီချင်းဖိုင် ရှာမတွေ့ပါ (Check audio file)';
+    });
+  } else {
+    audioEl.pause();
+    isJukeboxPlaying = false;
+    if (discBtn) discBtn.classList.remove('playing');
+    if (statusEl) statusEl.textContent = 'ခေတ္တရပ်ထားသည် (Paused)';
+  }
+}
+
+function nextThadingyutTrack() {
+  currentTrackIdx = (currentTrackIdx + 1) % thadingyutTracks.length;
+  const audioEl = document.getElementById('thadingyut-audio');
+  const titleEl = document.getElementById('thadingyut-track-title');
+  const statusEl = document.getElementById('thadingyut-track-status');
+  const discBtn = document.querySelector('.lantern-toggle-disc');
+
+  if (!audioEl) return;
+
+  audioEl.setAttribute('src', thadingyutTracks[currentTrackIdx].src);
+  if (titleEl) titleEl.textContent = thadingyutTracks[currentTrackIdx].title;
+
+  if (isJukeboxPlaying) {
+    audioEl.play().then(() => {
+      if (discBtn) discBtn.classList.add('playing');
+      if (statusEl) statusEl.textContent = 'ဖွင့်ထားသည် 🎶 (Playing)';
+    }).catch(err => console.log(err));
+  }
+}
+
+/* ==========================================================
    1. Light Oil Lamps (ဆီမီးခွက်)
 ========================================================== */
 let litCount = 0;
@@ -123,40 +194,171 @@ function openMonePhoe() {
 }
 
 /* ==========================================================
-   4. Ring the Golden Bell Mini-Game (Option D)
+   Section 4: 3-Mini-Game Quest Controller
 ========================================================== */
-let bellTaps = 0;
-let bellWishRevealed = false;
+let starsCaught = 0;
+let bellRings = 0;
+let fireworksLit = 0;
 
-function ringBell() {
-  if (bellWishRevealed) return;
-  bellTaps++;
+function playQuestTone(freq = 587.33, duration = 1.0) {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.exponentialRampToValueAtTime(0.18, now + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + duration);
+  } catch (e) {}
+}
 
-  const bellBtn = document.getElementById('bell-btn');
-  const progressEl = document.getElementById('bell-progress');
+// STAGE 1: Catch 3 Stars
+function catchQuestStar(starBtn) {
+  if (starBtn.classList.contains('caught')) return;
+  starBtn.classList.add('caught');
+  starsCaught++;
+  playQuestTone(659.25 + starsCaught * 110, 0.6);
 
-  if (bellBtn) {
-    // Remove previous animation class and force reflow to restart animation
-    bellBtn.className = 'bell-btn';
-    void bellBtn.offsetWidth;
-    bellBtn.classList.add(`ring-${bellTaps}`);
-  }
+  const countEl = document.getElementById('star-count');
+  if (countEl) countEl.textContent = starsCaught;
 
-  if (progressEl) {
-    progressEl.textContent = `Ring: ${bellTaps} / 3 🔔`;
-  }
-
-  if (bellTaps === 3 && !bellWishRevealed) {
-    bellWishRevealed = true;
+  if (starsCaught >= 3) {
     setTimeout(() => {
-      const stage = document.getElementById('bell-stage');
-      const revealBox = document.getElementById('my-wish-reveal');
+      document.getElementById('quest-game-1').classList.remove('active');
+      document.getElementById('quest-game-2').classList.add('active');
 
-      if (stage) stage.style.display = 'none';
-      if (revealBox) revealBox.style.display = 'block';
-
-      sendTelegramAlert(`🔔✨ 顾顾 rang the Golden Bell 3 times and unlocked your personal Thadingyut wish!\n⏰ Time: ${new Date().toLocaleString()}`);
+      const p1 = document.getElementById('step-pill-1');
+      const p2 = document.getElementById('step-pill-2');
+      if (p1) { p1.classList.remove('active'); p1.classList.add('done'); p1.textContent = '1. 🌠 ပြီးပြီ ✓'; }
+      if (p2) p2.classList.add('active');
     }, 450);
+  }
+}
+
+// STAGE 2: Ring Pagoda Bell 3 Times
+function ringPagodaBell() {
+  if (bellRings >= 3) return;
+  bellRings++;
+  playQuestTone(523.25, 1.4);
+
+  const bellEmoji = document.getElementById('bell-emoji');
+  const ripple = document.getElementById('bell-ripple');
+  const countEl = document.getElementById('bell-count');
+  const soundText = document.getElementById('bell-sound-text');
+
+  if (countEl) countEl.textContent = bellRings;
+
+  if (bellEmoji) {
+    bellEmoji.classList.remove('ringing');
+    void bellEmoji.offsetWidth;
+    bellEmoji.classList.add('ringing');
+  }
+
+  if (ripple) {
+    ripple.classList.remove('active');
+    void ripple.offsetWidth;
+    ripple.classList.add('active');
+  }
+
+  const bellMessages = [
+    "နောင်... ✨ (၁ ချက် - စိတ်ချမ်းသာပါစေ)",
+    "နောင်... 🌟 (၂ ချက် - ကျန်းမာပျော်ရွှင်ပါစေ)",
+    "နောင်... 🙏 (၃ ချက် - ဆုတောင်းပြည့်ပါစေ!)"
+  ];
+  if (soundText) soundText.textContent = bellMessages[bellRings - 1];
+
+  if (bellRings >= 3) {
+    setTimeout(() => {
+      document.getElementById('quest-game-2').classList.remove('active');
+      document.getElementById('quest-game-3').classList.add('active');
+
+      const p2 = document.getElementById('step-pill-2');
+      const p3 = document.getElementById('step-pill-3');
+      if (p2) { p2.classList.remove('active'); p2.classList.add('done'); p2.textContent = '2. 🔔 ပြီးပြီ ✓'; }
+      if (p3) p3.classList.add('active');
+    }, 800);
+  }
+}
+
+// STAGE 3: Sparkle the Festival Fireworks
+function spawnFireworkBurst(btnElement) {
+  const rect = btnElement.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const sparks = ['✨', '🎆', '🎇', '🌟', '💛', '💖'];
+
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'fw-spark-particle';
+    p.textContent = sparks[i % sparks.length];
+    p.style.left = `${centerX}px`;
+    p.style.top = `${centerY}px`;
+    document.body.appendChild(p);
+
+    const angle = (Math.PI * 2 * i) / 8;
+    const distance = 50 + Math.random() * 35;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+
+    requestAnimationFrame(() => {
+      p.style.transform = `translate(${dx}px, ${dy}px) scale(1.25)`;
+      p.style.opacity = '0';
+    });
+
+    setTimeout(() => p.remove(), 800);
+  }
+}
+
+function launchFirework(fwBtn, idx) {
+  if (fwBtn.classList.contains('sparkled')) return;
+  fwBtn.classList.add('sparkled');
+  fireworksLit++;
+
+  // Play rising celebration chord notes
+  playQuestTone(523.25 + fireworksLit * 130, 0.7);
+  setTimeout(() => playQuestTone(783.99 + fireworksLit * 150, 0.8), 110);
+
+  const emojiEl = fwBtn.querySelector('.fw-emoji');
+  const labelEl = fwBtn.querySelector('.fw-label');
+  const icons = ['🎇', '🎆', '🎇'];
+  if (emojiEl) emojiEl.textContent = icons[idx % icons.length];
+  if (labelEl) labelEl.textContent = 'လှလိုက်တာ! ✨';
+
+  spawnFireworkBurst(fwBtn);
+
+  const countEl = document.getElementById('fw-count');
+  const statusEl = document.getElementById('fw-status-text');
+  if (countEl) countEl.textContent = fireworksLit;
+
+  if (fireworksLit === 1 && statusEl) {
+    statusEl.textContent = 'ရွှီး... ဖောင်း! 🎇 နောက် (၂) ခု ကျန်သေးတယ်နော်!';
+  } else if (fireworksLit === 2 && statusEl) {
+    statusEl.textContent = 'အရမ်းလှတာပဲ! 🎆 နောက်ဆုံး (၁) ခုကို ဖောက်လိုက်ပါဦး!';
+  } else if (fireworksLit >= 3) {
+    if (statusEl) statusEl.textContent = 'မီးရှူးမီးပန်းတွေ အကုန်လုံး လင်းလက်သွားပြီ! 🎉🎆';
+
+    setTimeout(() => {
+      document.getElementById('quest-game-3').classList.remove('active');
+      const p3 = document.getElementById('step-pill-3');
+      if (p3) { p3.classList.remove('active'); p3.classList.add('done'); p3.textContent = '3. 🎆 ပြီးပြီ ✓'; }
+
+      const subtitle = document.getElementById('quest-subtitle');
+      if (subtitle) subtitle.textContent = 'ဂိမ်း (၃) ခုလုံး အောင်မြင်စွာ ပြီးဆုံးသွားပါပြီ! 🎉💖';
+
+      const wishBox = document.getElementById('unlocked-wish-box');
+      if (wishBox) wishBox.classList.add('show');
+
+      if (typeof sendTelegramAlert === 'function') {
+        sendTelegramAlert(`🎆 顾顾 completed all 3 Thadingyut mini-games (Stars, Bell & Fireworks) and unlocked your Wish! 💖\n⏰ Time: ${new Date().toLocaleString()}`);
+      }
+    }, 850);
   }
 }
 

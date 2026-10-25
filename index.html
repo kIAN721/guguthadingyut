@@ -29,30 +29,33 @@
     </p>
 
     <!-- FESTIVAL LANTERN JUKEBOX -->
-      <div class="thadingyut-jukebox-card">
-        <span class="jukebox-badge">🏮 Festival Jukebox 🎶</span>
-        <h3 class="jukebox-title">သီတင်းကျွတ် တေးသံသာများ</h3>
-        <p class="jukebox-subtitle">မီးပုံးလေးကို နှိပ်ပြီး သီချင်းပြောင်းနားထောင်လို့ရပါတယ်နော် ✨</p>
+    <div class="thadingyut-jukebox-card">
+      <span class="jukebox-badge">🏮 Festival Jukebox 🎶</span>
+      <h3 class="jukebox-title">ကုကုအတွက်သီတင်းကျွတ်သီချင်းလေးတွေပါ</h3>
+      <p class="jukebox-subtitle">မီးပုံးလေးကိုနှိပ်ပြီး သီချင်းဖွင့်လို့ရသလို အောက်က list ထဲကနေလည်း စိတ်ကြိုက်ရွေးနားထောင်လို့ရတယ်နော် ✨</p>
 
-        <div class="lantern-player-box">
-          <button type="button" class="lantern-toggle-disc" onclick="toggleThadingyutMusic()">
-            <span id="lantern-icon" class="lantern-icon">🏮</span>
-            <span class="pulse-ring"></span>
-          </button>
-          
-          <div class="track-display">
-            <span id="thadingyut-track-title" class="track-title">သီတင်းကျွတ်ညချမ်း (Thadingyut Vibe)</span>
-            <span id="thadingyut-track-status" class="track-status">ပိတ်ထားသည် (Tap lantern to play)</span>
-          </div>
-
-          <button type="button" class="next-track-btn" onclick="nextThadingyutTrack()" title="Next Song">
-            ⏭️
-          </button>
+      <div class="lantern-player-box">
+        <button type="button" class="lantern-toggle-disc" onclick="toggleThadingyutMusic()">
+          <span id="lantern-icon" class="lantern-icon">🏮</span>
+          <span class="pulse-ring"></span>
+        </button>
+        
+        <div class="track-display">
+          <span id="thadingyut-track-title" class="track-title">သီတင်းကျွတ်ညလေးတစ်ည - May Khalar & Yadanar</span>
+          <span id="thadingyut-track-status" class="track-status">Tap lantern or pick a song below</span>
         </div>
 
-        <!-- Hidden Audio Element -->
-        <audio id="thadingyut-audio" loop preload="auto"></audio>
+        <button type="button" class="next-track-btn" onclick="nextThadingyutTrack()" title="Next Song">
+          ⏭️
+        </button>
       </div>
+
+      <!-- Scrollable Song List -->
+      <div id="jukebox-song-list" class="jukebox-song-list"></div>
+
+      <!-- Hidden Audio Element (Removed 'loop' so it auto-advances to the next song!) -->
+      <audio id="thadingyut-audio" preload="auto"></audio>
+    </div>
 
     <!-- 1. Interactive Oil Lamps (ဆီမီးထွန်းမယ်) -->
     <div class="fest-card">

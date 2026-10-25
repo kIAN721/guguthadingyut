@@ -21,6 +21,36 @@ function sendTelegramAlert(textMessage) {
 ========================================================== */
 let isPlaying = true; // Autoplay ဖြစ်နေပြီမို့ true စတင်ပေးပါမည်
 
+// Helper function to pause background music when Jukebox starts
+function pauseBgMusic() {
+  const bgAudio = document.getElementById('bg-audio');
+  const btn = document.getElementById('music-toggle-btn');
+  const icon = document.getElementById('music-icon');
+  const text = document.getElementById('music-text');
+
+  if (bgAudio && !bgAudio.paused) {
+    bgAudio.pause();
+  }
+  isPlaying = false;
+  if (btn) btn.classList.remove('playing');
+  if (icon) icon.textContent = '🔇';
+  if (text) text.textContent = 'Play';
+}
+
+// Helper function to pause Jukebox when top-right background music is clicked
+function pauseJukeboxMusic() {
+  const jukeboxAudio = document.getElementById('thadingyut-audio');
+  const discBtn = document.querySelector('.lantern-toggle-disc');
+  const statusEl = document.getElementById('thadingyut-track-status');
+
+  if (jukeboxAudio && !jukeboxAudio.paused) {
+    jukeboxAudio.pause();
+  }
+  isJukeboxPlaying = false;
+  if (discBtn) discBtn.classList.remove('playing');
+  if (statusEl) statusEl.textContent = 'Paused ⏸️';
+}
+
 // မျက်နှာပြင်စဖွင့်ချင်း အလိုအလျောက် သီချင်းစရန်
 window.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('bg-audio');
@@ -51,6 +81,9 @@ function toggleMusic() {
   if (!audio) return;
 
   if (!isPlaying) {
+    // Stop Jukebox first so they don't overlap
+    pauseJukeboxMusic();
+
     audio.play().then(() => {
       isPlaying = true;
       btn.classList.add('playing');
@@ -64,37 +97,138 @@ function toggleMusic() {
     isPlaying = false;
     btn.classList.remove('playing');
     icon.textContent = '🔇';
-    text.textContent = 'Pause';
+    text.textContent = 'Play';
   }
 }
 
 /* ==========================================================
-   Thadingyut Lantern Jukebox Controller
+   Thadingyut Lantern Jukebox Controller (With Scroll List & Auto-Next)
 ========================================================== */
 const thadingyutTracks = [
   {
-    title: "သီတင်းကျွတ်ညချမ်း (Acoustic Vibe)",
-    src: "audio/taywar.mp3" // Replace with your actual audio filename or link
+    title: "သီတင်းကျွတ်ညလေးတစ်ည - May Khalar & Yadanar",
+    src: "audio/thadingyutnya.mp3"
   },
   {
-    title: "မီးပုံးပျံလေးများ (Lantern Glow)",
-    src: "audio/thadingyut2.mp3" // Replace with your actual audio filename or link
+    title: "မီးပုံပွဲ - Hlwan Paing",
+    src: "audio/meeponepwal.mp3"
   },
   {
-    title: "ဆီမီးတိုင်လေးတွေထွန်းလို့ (Festival Night)",
-    src: "audio/thadingyut3.mp3" // Replace with your actual audio filename or link
+    title: "ပွဲတော်ည - ကိုအောင်",
+    src: "audio/pwaltawnya.mp3"
+  },
+  {
+    title: "အဖြူရောင်သံစဉ် - Bo Phyu",
+    src: "audio/aphyuyaung.mp3"
+  },
+  {
+    title: "ရှမ်းရိုးမကအိုးစည်သံ - Sai Htee Saing",
+    src: "audio/shanyoema.mp3"
+  },
+  {
+    title: "အိမ်မက်ဆောင်းည - Bo Phyu",
+    src: "audio/eainmat.mp3"
+  },
+  {
+    title: "လတ်တီး - Bo Phyu",
+    src: "audio/lattee.mp3"
   }
 ];
 
 let currentTrackIdx = 0;
 let isJukeboxPlaying = false;
 
-function toggleThadingyutMusic() {
+// Render the scrollable song list and attach 'ended' listener for auto-next
+window.addEventListener('DOMContentLoaded', () => {
+  renderJukeboxList();
+
   const audioEl = document.getElementById('thadingyut-audio');
+  if (audioEl) {
+    // When a song finishes, automatically play the next song in the list
+    audioEl.addEventListener('ended', () => {
+      nextThadingyutTrack();
+    });
+  }
+});
+
+function renderJukeboxList() {
+  const listEl = document.getElementById('jukebox-song-list');
+  if (!listEl) return;
+
+  listEl.innerHTML = '';
+  thadingyutTracks.forEach((track, idx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    const isActive = idx === currentTrackIdx;
+    btn.className = 'jukebox-song-item' + (isActive ? ' active' : '');
+    btn.innerHTML = `
+      <div class="jukebox-item-left">
+        <span class="jukebox-item-num">🏮 ${idx + 1}.</span>
+        <span class="jukebox-item-title">${track.title}</span>
+      </div>
+      <span class="jukebox-item-icon">${isActive && isJukeboxPlaying ? '🎶' : '▶️'}</span>
+    `;
+    btn.onclick = () => selectThadingyutTrack(idx);
+    listEl.appendChild(btn);
+  });
+}
+
+function updateJukeboxUI() {
   const discBtn = document.querySelector('.lantern-toggle-disc');
   const statusEl = document.getElementById('thadingyut-track-status');
   const titleEl = document.getElementById('thadingyut-track-title');
-  
+
+  if (titleEl) titleEl.textContent = thadingyutTracks[currentTrackIdx].title;
+
+  if (isJukeboxPlaying) {
+    if (discBtn) discBtn.classList.add('playing');
+    if (statusEl) statusEl.textContent = 'Playing 🎶';
+  } else {
+    if (discBtn) discBtn.classList.remove('playing');
+    if (statusEl) statusEl.textContent = 'Paused ⏸️';
+  }
+
+  // Update active highlight & icon in the scrollable list
+  const items = document.querySelectorAll('.jukebox-song-item');
+  items.forEach((item, idx) => {
+    const icon = item.querySelector('.jukebox-item-icon');
+    if (idx === currentTrackIdx) {
+      item.classList.add('active');
+      if (icon) icon.textContent = isJukeboxPlaying ? '🎶' : '▶️';
+    } else {
+      item.classList.remove('active');
+      if (icon) icon.textContent = '▶️';
+    }
+  });
+}
+
+function selectThadingyutTrack(idx) {
+  const audioEl = document.getElementById('thadingyut-audio');
+  if (!audioEl) return;
+
+  // If clicking the song that is already selected, toggle play/pause
+  if (idx === currentTrackIdx && audioEl.getAttribute('src')) {
+    toggleThadingyutMusic();
+    return;
+  }
+
+  currentTrackIdx = idx;
+  pauseBgMusic();
+
+  audioEl.setAttribute('src', thadingyutTracks[currentTrackIdx].src);
+  audioEl.play().then(() => {
+    isJukeboxPlaying = true;
+    updateJukeboxUI();
+  }).catch(err => {
+    console.log("Jukebox play error:", err);
+    const statusEl = document.getElementById('thadingyut-track-status');
+    if (statusEl) statusEl.textContent = 'Check audio file';
+  });
+}
+
+function toggleThadingyutMusic() {
+  const audioEl = document.getElementById('thadingyut-audio');
+  const statusEl = document.getElementById('thadingyut-track-status');
   if (!audioEl) return;
 
   if (!audioEl.getAttribute('src')) {
@@ -102,41 +236,39 @@ function toggleThadingyutMusic() {
   }
 
   if (!isJukeboxPlaying) {
+    pauseBgMusic();
     audioEl.play().then(() => {
       isJukeboxPlaying = true;
-      if (discBtn) discBtn.classList.add('playing');
-      if (statusEl) statusEl.textContent = 'ဖွင့်ထားသည် 🎶 (Playing)';
-      if (titleEl) titleEl.textContent = thadingyutTracks[currentTrackIdx].title;
+      updateJukeboxUI();
     }).catch(err => {
       console.log("Jukebox play error (check audio file path):", err);
-      if (statusEl) statusEl.textContent = 'သီချင်းဖိုင် ရှာမတွေ့ပါ (Check audio file)';
+      if (statusEl) statusEl.textContent = 'Check audio file';
     });
   } else {
     audioEl.pause();
     isJukeboxPlaying = false;
-    if (discBtn) discBtn.classList.remove('playing');
-    if (statusEl) statusEl.textContent = 'ခေတ္တရပ်ထားသည် (Paused)';
+    updateJukeboxUI();
   }
 }
 
 function nextThadingyutTrack() {
   currentTrackIdx = (currentTrackIdx + 1) % thadingyutTracks.length;
   const audioEl = document.getElementById('thadingyut-audio');
-  const titleEl = document.getElementById('thadingyut-track-title');
-  const statusEl = document.getElementById('thadingyut-track-status');
-  const discBtn = document.querySelector('.lantern-toggle-disc');
-
   if (!audioEl) return;
 
+  pauseBgMusic();
   audioEl.setAttribute('src', thadingyutTracks[currentTrackIdx].src);
-  if (titleEl) titleEl.textContent = thadingyutTracks[currentTrackIdx].title;
 
-  if (isJukeboxPlaying) {
-    audioEl.play().then(() => {
-      if (discBtn) discBtn.classList.add('playing');
-      if (statusEl) statusEl.textContent = 'ဖွင့်ထားသည် 🎶 (Playing)';
-    }).catch(err => console.log(err));
-  }
+  audioEl.play().then(() => {
+    isJukeboxPlaying = true;
+    updateJukeboxUI();
+
+    // Smoothly scroll the active song into view inside the jukebox list
+    const items = document.querySelectorAll('.jukebox-song-item');
+    if (items[currentTrackIdx]) {
+      items[currentTrackIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }).catch(err => console.log(err));
 }
 
 /* ==========================================================

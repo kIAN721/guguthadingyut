@@ -239,6 +239,88 @@ h1 {
   background: rgba(251, 191, 36, 0.2);
 }
 
+/* Scrollable Jukebox Song List */
+.jukebox-song-list {
+  margin-top: 14px;
+  max-height: 195px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+  text-align: left;
+}
+
+.jukebox-song-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.jukebox-song-list::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 10px;
+}
+
+.jukebox-song-list::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.45);
+  border-radius: 10px;
+}
+
+.jukebox-song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  color: #E2E8F0;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.jukebox-song-item:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(251, 191, 36, 0.45);
+  transform: translateY(-1px);
+}
+
+.jukebox-song-item.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.28), rgba(180, 83, 9, 0.25));
+  border-color: #FCD34D;
+  color: #FEF3C7;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.2);
+}
+
+.jukebox-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.jukebox-item-num {
+  font-size: 12px;
+  color: #FCD34D;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.jukebox-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jukebox-item-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
 .fest-card {
   background: rgba(30, 41, 59, 0.72);
   border: 1px solid rgba(251, 191, 36, 0.28);

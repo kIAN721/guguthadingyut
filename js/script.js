@@ -40,15 +40,11 @@ function pauseBgMusic() {
 // Helper function to pause Jukebox when top-right background music is clicked
 function pauseJukeboxMusic() {
   const jukeboxAudio = document.getElementById('thadingyut-audio');
-  const discBtn = document.querySelector('.lantern-toggle-disc');
-  const statusEl = document.getElementById('thadingyut-track-status');
-
   if (jukeboxAudio && !jukeboxAudio.paused) {
     jukeboxAudio.pause();
   }
   isJukeboxPlaying = false;
-  if (discBtn) discBtn.classList.remove('playing');
-  if (statusEl) statusEl.textContent = 'Paused ⏸️';
+  if (typeof updateJukeboxUI === 'function') updateJukeboxUI();
 }
 
 // မျက်နှာပြင်စဖွင့်ချင်း အလိုအလျောက် သီချင်းစရန်

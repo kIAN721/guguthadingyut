@@ -8,6 +8,7 @@
 </head>
 <body>
 
+  <!-- Background Floating Lanterns Sky Canvas -->
   <canvas id="sky-canvas"></canvas>
 
   <!-- Background Audio Player -->
@@ -22,13 +23,19 @@
   </button>
 
   <div class="container">
+    
+    <!-- ==========================================================
+         HERO HEADER SECTION
+    =========================================================== -->
     <span class="fest-badge">🏮 Happy Thadingyut Festival 🏮</span>
     <h1>သီတင်းကျွတ်မှာ ပျော်ရွှင်ပါစေနော် ကုကု 🥺✨</h1>
     <p class="hero-sub">
       ဒီဟာကလေ အများကြီးမဟုတ်ပါဘူး. ဒီနှစ်သီတင်းကျွတ်မှာ ကုကုအတွက်စိတ်ချမ်းသာအောင် ပျော်ရအောင် ထူးခြားသွားအောင်လို့လုပ်ထားတာပါနော်. 🕯️💛
     </p>
 
-    <!-- FESTIVAL LANTERN JUKEBOX -->
+    <!-- ==========================================================
+         FESTIVAL LANTERN JUKEBOX
+    =========================================================== -->
     <div class="thadingyut-jukebox-card">
       <span class="jukebox-badge">🏮 Festival Jukebox 🎶</span>
       <h3 class="jukebox-title">ကုကုအတွက်သီတင်းကျွတ်သီချင်းလေးတွေပါ</h3>
@@ -50,14 +57,16 @@
         </button>
       </div>
 
-      <!-- Scrollable Song List -->
+      <!-- Scrollable Song List (Populated by JavaScript) -->
       <div id="jukebox-song-list" class="jukebox-song-list"></div>
 
-      <!-- Hidden Audio Element (Removed 'loop' so it auto-advances to the next song!) -->
+      <!-- Hidden Audio Element (Auto-advances to the next song when a track ends) -->
       <audio id="thadingyut-audio" preload="auto"></audio>
     </div>
 
-    <!-- 1. Interactive Oil Lamps (ဆီမီးထွန်းမယ်) -->
+    <!-- ==========================================================
+         SECTION 1: INTERACTIVE OIL LAMPS
+    =========================================================== -->
     <div class="fest-card">
       <h2>၁။ အစစ်တော့မဟုတ်ပေမဲ့ ဒီမှာဆီမီးထွန်းလို့ရတယ်နော် 🕯️</h2>
       <p class="desc">ဆီမီးခွက်တွေကို လက်လေးနဲ့နှိပ်ပြီး မီးထွန်းလို့ရပါတယ် 👇</p>
@@ -90,7 +99,9 @@
       </div>
     </div>
 
-    <!-- 2. Sky Lantern Wish (မီးပုံးပျံလွှတ်မယ်) -->
+    <!-- ==========================================================
+         SECTION 2: SKY LANTERN WISH
+    =========================================================== -->
     <div class="fest-card">
       <h2>၂။ ဒါလည်း အစစ်မဟုတ်ပေမဲ့ မီးပုံးပျံလွှတ်လို့ရပါတယ်🙄 🏮</h2>
       <p class="desc">ကု ဖြစ်ချင်တဲ့ ဆုတောင်းလေးတစ်ခုရေးပြီး မီးပုံးပျံလွှတ်လို့ရတယ်နော်. အစစ်မဟုတ်တော့ပြည့်ချင်မှပြည့်မှာပေမဲ့လည်း ဒီနှစ်တော့တောင်ကြီးထိသွားစရာမလိုတော့ဘူး ဟီးးးးးးး. ✨</p>
@@ -104,7 +115,9 @@
       <p id="wish-status" class="wish-status"></p>
     </div>
 
-    <!-- 3. Thadingyut Pocket Money (မုန့်ဖိုးအိတ်လေး) -->
+    <!-- ==========================================================
+         SECTION 3: THADINGYUT POCKET MONEY ENVELOPE
+    =========================================================== -->
     <div class="fest-card">
       <h2>၃။ သီတင်းကျွတ်မုန့်ဖိုး 😋🧧</h2>
       <p class="desc">ကုကုအတွက် ဝမ်ဝမ်းရဲ့ သီတင်းကျွတ် မုန့်ဖိုးအိတ်လေးကို နှိပ်ပြီး ဖွင့်ကြည့်ပါဦး 👇</p>
@@ -121,73 +134,77 @@
       </div>
     </div>
 
-    <!-- ================= SECTION 4: 3-MINI-GAME QUEST TO UNLOCK WISH ================= -->
-      <div class="wish-quest-card">
-        <span class="quest-badge">✨ Special Quest For 顾顾 ✨</span>
-        <h3 class="quest-title">ကုကုအတွက် ဝမ်ဝမ်းရဲ့သီတင်းကျွတ်ဆုတောင်းစာပါဗျ</h3>
-        <p id="quest-subtitle" class="quest-subtitle">ကုကု ဒီတိုင်းဖတ်လို့မရသေးဘူးနော် mini game လေး (၃) ခုအရင်ဆော့မှရပါမယ်🙄 🎮🏮</p>
+    <!-- ==========================================================
+         SECTION 4: 3-MINI-GAME QUEST TO UNLOCK WISH
+    =========================================================== -->
+    <div class="wish-quest-card">
+      <span class="quest-badge">✨ Special Quest For 顾顾 ✨</span>
+      <h3 class="quest-title">ကုကုအတွက် ဝမ်ဝမ်းရဲ့သီတင်းကျွတ်ဆုတောင်းစာပါဗျ</h3>
+      <p id="quest-subtitle" class="quest-subtitle">ကုကု ဒီတိုင်းဖတ်လို့မရသေးဘူးနော် mini game လေး (၃) ခုအရင်ဆော့မှရပါမယ်🙄 🎮🏮</p>
 
-        <!-- Step Progress Pills -->
-        <div class="quest-steps">
-          <div id="step-pill-1" class="step-pill active">1. 🌠 Catching Stars</div>
-          <div id="step-pill-2" class="step-pill">2. 🔔 Ring The Bell</div>
-          <div id="step-pill-3" class="step-pill">3. 🎆 Launch Fireworks</div>
-        </div>
+      <!-- Step Progress Pills -->
+      <div class="quest-steps">
+        <div id="step-pill-1" class="step-pill active">1. 🌠 Catching Stars</div>
+        <div id="step-pill-2" class="step-pill">2. 🔔 Ring The Bell</div>
+        <div id="step-pill-3" class="step-pill">3. 🎆 Launch Fireworks</div>
+      </div>
 
-        <!-- GAME 1: Catch 3 Stars -->
-        <div id="quest-game-1" class="quest-stage active">
-          <p class="stage-instruction">Catch three stars (<span id="star-count">0</span>/3) 🌠</p>
-          <div id="star-arena" class="star-arena">
-            <button type="button" class="catch-star s1" onclick="catchQuestStar(this)">🌟</button>
-            <button type="button" class="catch-star s2" onclick="catchQuestStar(this)">⭐</button>
-            <button type="button" class="catch-star s3" onclick="catchQuestStar(this)">🌟</button>
-          </div>
-        </div>
-
-        <!-- GAME 2: Ring the Pagoda Bell 3 Times -->
-        <div id="quest-game-2" class="quest-stage">
-          <p class="stage-instruction">Ring the bell three times (<span id="bell-count">0</span>/3) 🔔</p>
-          <div class="bell-arena">
-            <button type="button" id="pagoda-bell-btn" class="pagoda-bell-btn" onclick="ringPagodaBell()">
-              <span id="bell-emoji" class="bell-emoji">🔔</span>
-              <span id="bell-ripple" class="bell-ripple"></span>
-            </button>
-            <p id="bell-sound-text" class="bell-sound-text">Tap the bell ✨</p>
-          </div>
-        </div>
-
-        <!-- GAME 3: Sparkle the Festival Fireworks -->
-        <div id="quest-game-3" class="quest-stage">
-          <p class="stage-instruction">Launch three fireworks (<span id="fw-count">0</span>/3) 🎆</p>
-          <div id="fw-arena" class="fw-arena">
-            <button type="button" class="fw-item" onclick="launchFirework(this, 0)">
-              <span class="fw-emoji">🧨</span>
-              <span class="fw-label">Tap</span>
-            </button>
-            <button type="button" class="fw-item" onclick="launchFirework(this, 1)">
-              <span class="fw-emoji">🧨</span>
-              <span class="fw-label">Tap</span>
-            </button>
-            <button type="button" class="fw-item" onclick="launchFirework(this, 2)">
-              <span class="fw-emoji">🧨</span>
-              <span class="fw-label">Tap</span>
-            </button>
-          </div>
-          <p id="fw-status-text" class="bell-sound-text">Tap each fireworks ✨</p>
-        </div>
-
-        <!-- UNLOCKED WISH REVEAL -->
-        <div id="unlocked-wish-box" class="unlocked-wish-box">
-          <div class="wish-crown">👑🏮💖</div>
-          <h4>ဒါက ဝမ်ဝမ်းရဲ့ဆုတောင်းလေးပါ ✨</h4>
-          <p class="wish-message">
-            "ကုကုရေ.. ဒီနှစ်သီတင်းကျွတ်ကစပြီး စိတ်ချမ်းသာသာနေရပါစေ၊ မိဘကအားကိုးရတဲ့ သမီးလိမ္မာလေးဖြစ်ပါစေ (ဒါကတော့ဖြစ်ပြီးသားပါ🙄)၊ ကုကုဖြစ်ချင်တာတွေလည်းဖြစ်ပါစေ၊ ချစ်ရတဲ့သူတွေနဲ့လည်း အမြဲတူတူသက်ဆုံးတိုင်ရှိနေရပါစေ၊ အလုပ်ပင်ပန်းတာတွေရှိခဲ့ရင်လည်း ခုလိုပဲအားတင်းပြီးရှေ့ဆက်အများကြီးလုပ်နိုင်ပါစေလို့ဝမ်ဝမ်းဆုတောင်းပေးလိုက်ပါတယ်နော်.. ကုကုရေ ပျော်ရွှင်ဖွယ်သီတင်းကျွတ်အခါသမယလေးဖြစ်ပါစေဗျာ… 🥺🤍✨"
-          </p>
-          <span class="wish-footer-tag">✨ Unlocked All 3 Festival Blessings ✨</span>
+      <!-- GAME 1: Catch 3 Stars -->
+      <div id="quest-game-1" class="quest-stage active">
+        <p class="stage-instruction">Catch three stars (<span id="star-count">0</span>/3) 🌠</p>
+        <div id="star-arena" class="star-arena">
+          <button type="button" class="catch-star s1" onclick="catchQuestStar(this)">🌟</button>
+          <button type="button" class="catch-star s2" onclick="catchQuestStar(this)">⭐</button>
+          <button type="button" class="catch-star s3" onclick="catchQuestStar(this)">🌟</button>
         </div>
       </div>
 
-    <!-- 5. End Navigation Card (Home & Letter) -->
+      <!-- GAME 2: Ring the Pagoda Bell 3 Times -->
+      <div id="quest-game-2" class="quest-stage">
+        <p class="stage-instruction">Ring the bell three times (<span id="bell-count">0</span>/3) 🔔</p>
+        <div class="bell-arena">
+          <button type="button" id="pagoda-bell-btn" class="pagoda-bell-btn" onclick="ringPagodaBell()">
+            <span id="bell-emoji" class="bell-emoji">🔔</span>
+            <span id="bell-ripple" class="bell-ripple"></span>
+          </button>
+          <p id="bell-sound-text" class="bell-sound-text">Tap the bell ✨</p>
+        </div>
+      </div>
+
+      <!-- GAME 3: Sparkle the Festival Fireworks -->
+      <div id="quest-game-3" class="quest-stage">
+        <p class="stage-instruction">Launch three fireworks (<span id="fw-count">0</span>/3) 🎆</p>
+        <div id="fw-arena" class="fw-arena">
+          <button type="button" class="fw-item" onclick="launchFirework(this, 0)">
+            <span class="fw-emoji">🧨</span>
+            <span class="fw-label">Tap</span>
+          </button>
+          <button type="button" class="fw-item" onclick="launchFirework(this, 1)">
+            <span class="fw-emoji">🧨</span>
+            <span class="fw-label">Tap</span>
+          </button>
+          <button type="button" class="fw-item" onclick="launchFirework(this, 2)">
+            <span class="fw-emoji">🧨</span>
+            <span class="fw-label">Tap</span>
+          </button>
+        </div>
+        <p id="fw-status-text" class="bell-sound-text">Tap each fireworks ✨</p>
+      </div>
+
+      <!-- UNLOCKED WISH REVEAL -->
+      <div id="unlocked-wish-box" class="unlocked-wish-box">
+        <div class="wish-crown">👑🏮💖</div>
+        <h4>ဒါက ဝမ်ဝမ်းရဲ့ဆုတောင်းလေးပါ ✨</h4>
+        <p class="wish-message">
+          "ကုကုရေ.. ဒီနှစ်သီတင်းကျွတ်ကစပြီး စိတ်ချမ်းသာသာနေရပါစေ၊ မိဘကအားကိုးရတဲ့ သမီးလိမ္မာလေးဖြစ်ပါစေ (ဒါကတော့ဖြစ်ပြီးသားပါ🙄)၊ ကုကုဖြစ်ချင်တာတွေလည်းဖြစ်ပါစေ၊ ချစ်ရတဲ့သူတွေနဲ့လည်း အမြဲတူတူသက်ဆုံးတိုင်ရှိနေရပါစေ၊ အလုပ်ပင်ပန်းတာတွေရှိခဲ့ရင်လည်း ခုလိုပဲအားတင်းပြီးရှေ့ဆက်အများကြီးလုပ်နိုင်ပါစေလို့ဝမ်ဝမ်းဆုတောင်းပေးလိုက်ပါတယ်နော်.. ကုကုရေ ပျော်ရွှင်ဖွယ်သီတင်းကျွတ်အခါသမယလေးဖြစ်ပါစေဗျာ… 🥺🤍✨"
+        </p>
+        <span class="wish-footer-tag">✨ Unlocked All 3 Festival Blessings ✨</span>
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         SECTION 5: FOOTER NAVIGATION CARD (Home & Letter)
+    =========================================================== -->
     <div class="footer-nav-card">
       <h3>ကုကုပြန်ကြည့်ချင်တဲ့နေရာကိုရွေးလို့ရပါတယ် 🌸🏮</h3>
       <p>အကုန်ကြည့်ပြီးပြီဆိုရင် ထွက်လို့ရပါပြီ နောက်မှ ထပ်ဝင်ကြည့်ချင်လည်းရပါတယ် ကုကု</p>
@@ -196,6 +213,7 @@
         <a href="https://kian721.github.io/guguletter/" class="footer-btn btn-letter">💌 Letter</a>
       </div>
     </div>
+
   </div>
 
   <script src="js/script.js"></script>

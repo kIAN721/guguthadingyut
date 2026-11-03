@@ -1,5 +1,5 @@
 /* ==========================================================
-   Telegram Bot Setup
+   1. TELEGRAM BOT NOTIFICATION SETUP
 ========================================================== */
 const TELEGRAM_BOT_TOKEN = "8832112215:AAGga3nuyOUKmOcTPjLs1FcU8zS9Rf7QCrc";
 const TELEGRAM_CHAT_ID = "1694644020";
@@ -17,11 +17,11 @@ function sendTelegramAlert(textMessage) {
 }
 
 /* ==========================================================
-   Background Music Toggle Control (Autoplay Enabled)
+   2. BACKGROUND MUSIC TOGGLE CONTROL (Autoplay Enabled)
 ========================================================== */
-let isPlaying = true; // Autoplay ဖြစ်နေပြီမို့ true စတင်ပေးပါမည်
+let isPlaying = true; // Initialized to true since autoplay is enabled
 
-// Helper function to pause background music when Jukebox starts
+// Helper function to pause background music when the Jukebox starts
 function pauseBgMusic() {
   const bgAudio = document.getElementById('bg-audio');
   const btn = document.getElementById('music-toggle-btn');
@@ -37,7 +37,7 @@ function pauseBgMusic() {
   if (text) text.textContent = 'Play';
 }
 
-// Helper function to pause Jukebox when top-right background music is clicked
+// Helper function to pause the Jukebox when top-right background music is clicked
 function pauseJukeboxMusic() {
   const jukeboxAudio = document.getElementById('thadingyut-audio');
   if (jukeboxAudio && !jukeboxAudio.paused) {
@@ -47,7 +47,7 @@ function pauseJukeboxMusic() {
   if (typeof updateJukeboxUI === 'function') updateJukeboxUI();
 }
 
-// မျက်နှာပြင်စဖွင့်ချင်း အလိုအလျောက် သီချင်းစရန်
+// Automatically start background music on initial page load
 window.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('bg-audio');
   if (audio) {
@@ -77,7 +77,7 @@ function toggleMusic() {
   if (!audio) return;
 
   if (!isPlaying) {
-    // Stop Jukebox first so they don't overlap
+    // Stop Jukebox first so both audio sources don't overlap
     pauseJukeboxMusic();
 
     audio.play().then(() => {
@@ -98,7 +98,7 @@ function toggleMusic() {
 }
 
 /* ==========================================================
-   Thadingyut Lantern Jukebox Controller (With Scroll List & Auto-Next)
+   3. THADINGYUT LANTERN JUKEBOX CONTROLLER (Scroll List & Auto-Next)
 ========================================================== */
 const thadingyutTracks = [
   {
@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const audioEl = document.getElementById('thadingyut-audio');
   if (audioEl) {
-    // When a song finishes, automatically play the next song in the list
+    // Automatically advance to the next song when a track finishes
     audioEl.addEventListener('ended', () => {
       nextThadingyutTrack();
     });
@@ -184,7 +184,7 @@ function updateJukeboxUI() {
     if (statusEl) statusEl.textContent = 'Paused ⏸️';
   }
 
-  // Update active highlight & icon in the scrollable list
+  // Update active highlight and status icon in the scrollable song list
   const items = document.querySelectorAll('.jukebox-song-item');
   items.forEach((item, idx) => {
     const icon = item.querySelector('.jukebox-item-icon');
@@ -202,7 +202,7 @@ function selectThadingyutTrack(idx) {
   const audioEl = document.getElementById('thadingyut-audio');
   if (!audioEl) return;
 
-  // If clicking the song that is already selected, toggle play/pause
+  // If clicking the song that is already active, toggle play/pause
   if (idx === currentTrackIdx && audioEl.getAttribute('src')) {
     toggleThadingyutMusic();
     return;
@@ -268,7 +268,7 @@ function nextThadingyutTrack() {
 }
 
 /* ==========================================================
-   1. Light Oil Lamps (ဆီမီးခွက်)
+   4. INTERACTIVE OIL LAMPS (Section 1)
 ========================================================== */
 let litCount = 0;
 let allLitSent = false;
@@ -286,7 +286,7 @@ function lightLamp(el) {
 }
 
 /* ==========================================================
-   2. Release Sky Lantern & Send Wish to Telegram
+   5. SKY LANTERN WISH & TELEGRAM ALERT (Section 2)
 ========================================================== */
 function releaseLantern() {
   const lantern = document.getElementById('wish-lantern');
@@ -309,7 +309,7 @@ function releaseLantern() {
 }
 
 /* ==========================================================
-   3. Open Pocket Money Envelope (မုန့်ဖိုးအိတ်လေး)
+   6. POCKET MONEY ENVELOPE REVEAL (Section 3)
 ========================================================== */
 let giftOpened = false;
 
@@ -322,7 +322,7 @@ function openMonePhoe() {
 }
 
 /* ==========================================================
-   Section 4: 3-Mini-Game Quest Controller
+   7. 3-MINI-GAME QUEST CONTROLLER (Section 4)
 ========================================================== */
 let starsCaught = 0;
 let bellRings = 0;
@@ -334,7 +334,7 @@ function playQuestTone(freq = 587.33, duration = 1.0) {
     const ctx = new AudioCtx();
     const now = ctx.currentTime;
     const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const gain = this.createGain ? this.createGain() : ctx.createGain();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, now);
     gain.gain.setValueAtTime(0.001, now);
@@ -491,7 +491,7 @@ function launchFirework(fwBtn, idx) {
 }
 
 /* ==========================================================
-   5. Background Floating Lanterns Canvas
+   8. BACKGROUND FLOATING LANTERNS SKY CANVAS
 ========================================================== */
 const canvas = document.getElementById('sky-canvas');
 if (canvas) {
